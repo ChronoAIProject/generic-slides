@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { Oswald, Inter } from 'next/font/google';
+import { Bebas_Neue, Inter } from 'next/font/google';
 import './globals.css';
 
-const oswald = Oswald({
+const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
-  weight: ['700'],
-  variable: '--font-oswald',
+  weight: ['400'],
+  variable: '--font-bebas-neue',
   display: 'swap',
 });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${oswald.variable} ${inter.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${inter.variable}`}>
       <body className="font-body bg-deck-dark text-deck-primary antialiased">
         {children}
       </body>
