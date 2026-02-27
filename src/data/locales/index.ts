@@ -1,9 +1,6 @@
 import type { DeckLocale, Lang } from '@/lib/lang';
 
 const localeModules: Record<string, Record<string, () => Promise<DeckLocale>>> = {
-  'wk9-26': {
-    zh: () => import('./wk9-26.zh.json').then((m) => m.default),
-  },
 };
 
 export async function getLocale(

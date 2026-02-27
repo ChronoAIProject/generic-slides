@@ -1,9 +1,7 @@
 import type { DeckData } from '@/lib/types';
 
 const deckModules: Record<string, () => Promise<{ default: DeckData }>> = {
-  'wk7-26': () => import('./wk7-26'),
-  'wk8-26': () => import('./wk8-26'),
-  'wk9-26': () => import('./wk9-26'),
+  'sample': () => import('./sample'),
 };
 
 export async function getDeck(slug: string): Promise<DeckData | null> {
