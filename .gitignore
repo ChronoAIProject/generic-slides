@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# Node
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment
+.env*
