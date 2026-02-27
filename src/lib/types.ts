@@ -9,6 +9,7 @@ export type SlideLayout =
 export interface SlideColumn {
   title?: string;
   body: string;
+  download?: { label: string; href: string };
 }
 
 export interface SlideHighlight {
@@ -26,7 +27,8 @@ export interface ContentPhotoSlideData {
   layout: 'content-photo';
   headline: string;
   body: string;
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; caption?: string };
+  reverse?: boolean;
 }
 
 export interface FullHeadlineSlideData {

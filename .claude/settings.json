@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/Users/chronoai/Desktop/aelf-frontend-work/weekly-decks/public/assets/decks/wk7-26"
+    ],
+    "allow": [
+      "WebFetch(domain:ctkm-updates.surge.sh)"
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import type { DeckData } from '@/lib/types';
 
 const deck: DeckData = {
-  slug: '20260220-20260226',
+  slug: 'wk8-26',
   title: 'Week of Feb 20\u201326, 2026',
   start: '20260220',
   end: '20260226',

@@ -5,7 +5,7 @@ export function TitleSlide({ data }: { data: TitleSlideData }) {
   return (
     <div className="flex flex-col justify-center py-10">
       <h1
-        className="font-headline font-bold uppercase tracking-[-0.03em] leading-[0.9] text-deck-primary"
+        className="font-headline font-bold uppercase tracking-[0.02em] leading-[1.05] text-deck-primary"
         style={{ fontSize: 'clamp(100px, 14vw, 260px)' }}
       >
         {renderHeadline(data.headline)}

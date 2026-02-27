@@ -1,5 +1,6 @@
 import type { PhotoHeadlineSlideData } from '@/lib/types';
 import { renderHeadline } from '@/lib/renderHeadline';
+import { renderBody } from '@/lib/renderBody';
 
 export function PhotoHeadlineSlide({ data }: { data: PhotoHeadlineSlideData }) {
   return (
@@ -16,7 +17,7 @@ export function PhotoHeadlineSlide({ data }: { data: PhotoHeadlineSlideData }) {
           />
         </div>
         <h2
-          className="flex-1 font-headline font-bold uppercase tracking-[-0.03em] leading-[0.9] text-deck-primary"
+          className="flex-1 font-headline font-bold uppercase tracking-[0.02em] leading-[0.9] text-deck-primary"
           style={{ fontSize: 'clamp(50px, 7vw, 120px)' }}
         >
           {renderHeadline(data.headline)}
@@ -26,7 +27,7 @@ export function PhotoHeadlineSlide({ data }: { data: PhotoHeadlineSlideData }) {
         {data.columns.map((col, i) => (
           <div key={i} className="flex-1 max-w-[550px]">
             <p className="font-body font-normal text-base leading-[1.55] text-deck-primary">
-              {col.body}
+              {renderBody(col.body)}
             </p>
           </div>
         ))}

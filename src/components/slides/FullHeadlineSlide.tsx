@@ -1,11 +1,12 @@
 import type { FullHeadlineSlideData } from '@/lib/types';
 import { renderHeadline } from '@/lib/renderHeadline';
+import { renderBody } from '@/lib/renderBody';
 
 export function FullHeadlineSlide({ data }: { data: FullHeadlineSlideData }) {
   return (
     <div className="flex flex-col justify-start gap-12">
       <h2
-        className="font-headline font-bold uppercase tracking-[-0.03em] leading-[0.9] text-deck-primary"
+        className="font-headline font-bold uppercase tracking-[0.02em] leading-[0.9] text-deck-primary"
         style={{ fontSize: 'clamp(80px, 11vw, 200px)' }}
       >
         {renderHeadline(data.headline)}
@@ -20,8 +21,18 @@ export function FullHeadlineSlide({ data }: { data: FullHeadlineSlideData }) {
                   <br />
                 </>
               )}
-              {col.body}
+              {renderBody(col.body)}
             </p>
+            {col.download && (
+              <a
+                href={col.download.href}
+                download
+                className="inline-flex items-center gap-1.5 mt-4 px-2.5 py-1.5 rounded-md border border-deck-primary font-body text-xs font-medium text-deck-primary hover:bg-deck-primary hover:text-deck-accent transition-colors"
+              >
+                <span>&#x2193;</span>
+                {col.download.label}
+              </a>
+            )}
           </div>
         ))}
       </div>

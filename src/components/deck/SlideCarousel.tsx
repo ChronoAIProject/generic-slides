@@ -4,7 +4,6 @@ import React from 'react';
 import type { DeckData } from '@/lib/types';
 import { useSlideNavigation } from '@/hooks/useSlideNavigation';
 import { ProgressBar } from './ProgressBar';
-import { SlideCounter } from './SlideCounter';
 import { DotIndicators } from './DotIndicators';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -144,9 +143,7 @@ export function SlideCarousel({ deck, chromeHidden, children }: SlideCarouselPro
         style={{ padding: `0 var(--slide-margin)` }}
         aria-label="Slide navigation"
       >
-        <div>
-          <SlideCounter current={nav.currentIndex + 1} total={slides.length} />
-        </div>
+        <div className="w-16" />
         <div className="flex-1 flex justify-center">
           <DotIndicators
             total={slides.length}

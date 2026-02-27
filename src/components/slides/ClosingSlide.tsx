@@ -8,7 +8,7 @@ export function ClosingSlide({ data }: { data: ClosingSlideData }) {
       style={{ padding: 'var(--slide-margin)' }}
     >
       <h2
-        className="font-headline font-bold uppercase tracking-[-0.03em] leading-[0.9] text-deck-primary"
+        className="font-headline font-bold uppercase tracking-[0.02em] leading-[0.9] text-deck-primary"
         style={{ fontSize: 'clamp(120px, 16vw, 300px)' }}
       >
         {renderHeadline(data.headline)}

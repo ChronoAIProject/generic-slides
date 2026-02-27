@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getDeck, getAllSlugs } from '@/data/decks';
+import { getLocale } from '@/data/locales';
 import { Deck } from '@/components/deck/Deck';
 
 export function generateStaticParams() {
@@ -28,5 +29,7 @@ export default async function DeckPage({
   const deck = await getDeck(slug);
   if (!deck) notFound();
 
-  return <Deck deck={deck} />;
+  const zhLocale = await getLocale(slug, 'zh');
+
+  return <Deck deck={deck} locale={zhLocale} />;
 }

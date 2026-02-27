@@ -1,11 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-
-type Lang = 'en' | 'zh';
+import { useLang } from '@/lib/lang';
 
 export function LanguageSwitcher() {
-  const [lang, setLang] = useState<Lang>('en');
+  const { lang, setLang } = useLang();
 
   return (
     <div className="flex items-center gap-1 font-body text-sm">
