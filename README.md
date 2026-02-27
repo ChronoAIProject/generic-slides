@@ -325,15 +325,168 @@ A language switcher (EN / 中文) appears in the header automatically when a loc
 
 ## Deployment
 
-The project exports as static HTML (`next.config.ts` → `output: 'export'`). The `out/` directory can be deployed to any static host (Surge, Netlify, Vercel, GitHub Pages, S3, etc.).
+The project exports as static HTML (`next.config.ts` → `output: 'export'`). The `out/` directory can be deployed to any static host.
 
-To deploy to Surge, update the domain in `package.json`:
+### Option A: Surge.sh (Recommended)
 
-```json
-"deploy": "next build && surge ./out your-domain.surge.sh"
+The fastest way to deploy — one command, no CI setup needed. See the full [Surge docs](https://surge.sh/help) for more details.
+
+#### 1. Install Surge
+
+```bash
+npm install -g surge
+surge login               # create a free account or log in
 ```
 
-Add a `public/CNAME` file if using a custom domain.
+#### 2. Pick your subdomain
+
+You can deploy to **any name** you want on `.surge.sh` — it's first-come, first-served. Choose a subdomain that makes sense for your team:
+
+```
+my-team-updates.surge.sh
+frontend-weekly.surge.sh
+acme-eng-decks.surge.sh
+```
+
+Update the deploy script in `package.json` with your chosen name:
+
+```json
+"deploy": "next build && surge ./out my-team-updates.surge.sh"
+```
+
+#### 3. Deploy
+
+```bash
+npm run deploy
+```
+
+That's it. Your deck is live at `https://my-team-updates.surge.sh`.
+
+Each team member can deploy to their own subdomain, or the team can share one. Re-running `npm run deploy` updates the same URL in place.
+
+#### 4. (Optional) Custom domain
+
+To use a custom domain (e.g. `decks.yourcompany.com`) instead of a `.surge.sh` subdomain:
+
+1. Add a `public/CNAME` file:
+   ```
+   decks.yourcompany.com
+   ```
+2. Add a CNAME DNS record: `decks.yourcompany.com` → `na-west1.surge.sh`
+3. Update the deploy script:
+   ```json
+   "deploy": "next build && surge ./out decks.yourcompany.com"
+   ```
+
+Custom domains require a [Surge Plus](https://surge.sh/help/adding-a-custom-domain) plan. Free accounts can use any `.surge.sh` subdomain.
+
+#### Useful Surge commands
+
+| Command | Description |
+|---------|-------------|
+| `surge list` | List your deployed projects |
+| `surge teardown my-team-updates.surge.sh` | Remove a deployment |
+| `surge whoami` | Check logged-in account |
+
+Full reference: [surge.sh/help](https://surge.sh/help)
+
+---
+
+### Option B: GitHub Pages
+
+Better for automated deploys on every push. Requires a GitHub repo and Actions setup.
+
+#### 1. Set the base path
+
+If deploying to `https://<user>.github.io/<repo>/` (not a custom domain), set the base path in `next.config.ts`:
+
+```ts
+const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/your-repo-name',   // ← add this
+  images: { unoptimized: true },
+};
+```
+
+Skip this if using a custom domain (e.g. `decks.yourcompany.com`).
+
+#### 2. Add the GitHub Actions workflow
+
+Create `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+#### 3. Enable GitHub Pages
+
+Go to **Settings → Pages → Source** and select **GitHub Actions**.
+
+#### 4. (Optional) Custom domain
+
+To use a custom domain instead of `basePath`:
+
+1. Remove `basePath` from `next.config.ts`
+2. Add a `public/CNAME` file with your domain:
+   ```
+   decks.yourcompany.com
+   ```
+3. Configure your DNS to point to GitHub Pages ([docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site))
+
+#### Deploy script (manual alternative)
+
+Add to `package.json`:
+
+```json
+"deploy:gh": "npm run build && npx gh-pages -d out"
+```
+
+Install `gh-pages` as a dev dependency:
+
+```bash
+npm install -D gh-pages
+```
+
+Run `npm run deploy:gh` to push `out/` to the `gh-pages` branch. Then set **Settings → Pages → Source** to **Deploy from a branch** → `gh-pages`.
 
 ## Project Structure
 
