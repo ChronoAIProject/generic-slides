@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && surge ./out ctkm-updates.surge.sh"
+    "deploy": "next build && surge ./out your-team.surge.sh"
   },
   "author": "",
   "license": "ISC",
